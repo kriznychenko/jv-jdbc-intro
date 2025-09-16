@@ -66,8 +66,9 @@ public class Main {
         System.out.println("\nUpdated Book: " + updatedBook.getId() + " - "
                 + updatedBook.getTitle() + " - " + updatedBook.getPrice());
 
-        boolean deleted = bookDao.deleteById(10L);
+        boolean deleted = bookDao.deleteById(book3.getId());
         System.out.println("\nBook Deleted: " + deleted);
+        books = bookDao.findAll();
         System.out.println("\nAll Books:");
         for (Book book : books) {
             System.out.println(book.getId() + " - " + book.getTitle() + " - " + book.getPrice());

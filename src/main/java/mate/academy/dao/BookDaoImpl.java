@@ -34,9 +34,10 @@ public class BookDaoImpl implements BookDao {
                     }
                 }
             }
-            throw new RuntimeException("Can't save a book ");
+            throw new DataProcessingException("Can't save a book: " + book, null);
         } catch (SQLException e) {
-            throw new DataProcessingException("Database error while creating book", e);
+            throw new DataProcessingException("Database error while creating book with id="
+                    + book.getId(), e);
         }
     }
 
@@ -103,11 +104,13 @@ public class BookDaoImpl implements BookDao {
 
             if (affectedRows > 0) {
                 return book;
+            } else {
+                throw new DataProcessingException("Can't update book " + book, null);
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Failed to update book", e);
+            throw new DataProcessingException("Failed to update book with id="
+                    + book.getId() + " and title=" + book.getTitle(), e);
         }
-        return null;
     }
 
     @Override
